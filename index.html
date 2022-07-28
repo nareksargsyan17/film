@@ -4,14 +4,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title id="title">Film application</title>
+	<title>Film application</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<div class="top_nav">
+	<div id="top_nav">
 		<div class="container">
-			<div class="social">
+			<div id="social">
 				<a href="#">
 					<i class="fa fa-facebook-square"></i>
 				</a>
@@ -22,7 +22,7 @@
 					<i class="fa fa-youtube-play"></i>
 				</a>
 			</div>
-			<div class="login">
+			<div id="login">
 				<a href="#">Sign in</a>
 				<a href="#">Sign up</a>
 			</div>
@@ -30,13 +30,13 @@
 	</div>
 	<nav>
 		<div class="container">
-			<div class="logo">
+			<div id="logo">
 				<a href="index.html">
 					FILM APP
 				</a>
 			</div>
 
-			<ul>
+			<ul id="menu">
 				<li><a href="#">Comedy</a></li>
 				<li><a href="#">Fantasy</a></li>
 				<li><a href="#">Sport</a></li>
@@ -47,29 +47,20 @@
 		</div>
 	</nav>
 	<header>
-		<img src="img/bg1.jpg" alt="film cover" id="img1">
+		<img src="img/bg1.jpg" alt="film cover">
 	</header>
 	<main>
 		<div class="container">
-			<div class="main_header">
-				<ol class="favorite_films">
-					<li>Logan</li>
-					<li>Spider-Man</li>
-					<li>The Seven Samurai</li>
-					<li>Bonnie and Clyde</li>
-					<li>Reservoir Dogs</li>
-					<li>Doctor Zhivago</li>
-					<li>The Deer Hunter</li>
-					<li>Rocky</li>
-				</ol>
+			<div id="main_header">
+				<div id="films"></div>
 
-				<div class="add">
+				<div id="add">
 					<input type="text" placeholder="type here...">
 					<button>Add film</button>
 				</div>
 			</div>
 
-			<div class="main_promo">
+			<div id="main_promo">
 				<div class="mp">
 					<img src="https://pbs.twimg.com/media/EgSimvaWAAEUdh8.png" alt="a">
 				</div>
@@ -82,6 +73,6 @@
 			</div>
 		</div>
 	</main>
-	<script src="./js/main.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

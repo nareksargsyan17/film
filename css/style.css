@@ -15,11 +15,11 @@
   margin: 0 auto;
 }
 
-.top_nav {
+#top_nav {
   background: #171131;
 }
 
-.top_nav .container {
+#top_nav .container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -32,30 +32,30 @@
   height: 60px;
 }
 
-.top_nav .container a {
+#top_nav .container a {
   color: #fff;
   text-decoration: none;
 }
 
-.top_nav .container .social a {
+#top_nav .container #social a {
   margin-right: 8px;
   color: #f55d22;
   font-size: 18px;
 }
 
-.top_nav .container .social a:hover {
+#top_nav .container #social a:hover {
   color: #fff;
 }
 
-.top_nav .container .login a {
+#top_nav .container #login a {
   margin-left: 20px;
 }
 
-.top_nav .container .login a:nth-child(1):hover {
+#top_nav .container #login a:nth-child(1):hover {
   color: #f55d22;
 }
 
-.top_nav .container .login a:nth-child(2) {
+#top_nav .container #login a:nth-child(2) {
   border: 1px solid #fff;
   padding: 7px 10px;
   border-radius: 8px;
@@ -63,7 +63,7 @@
   transition: 0.2s;
 }
 
-.top_nav .container .login a:nth-child(2):hover {
+#top_nav .container #login a:nth-child(2):hover {
   border-color: #f55d22;
   background: #f55d22;
 }
@@ -89,7 +89,7 @@ nav .container {
   height: 80px;
 }
 
-nav .container .logo a {
+nav .container #logo a {
   color: #f55d22;
   text-decoration: none;
   font-weight: bold;
@@ -97,7 +97,7 @@ nav .container .logo a {
   font-size: 18px;
 }
 
-nav .container ul {
+nav .container #menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -107,11 +107,11 @@ nav .container ul {
           justify-content: space-between;
 }
 
-nav .container ul li {
+nav .container #menu li {
   list-style-type: none;
 }
 
-nav .container ul li a {
+nav .container #menu li a {
   color: #fff;
   text-decoration: none;
   text-transform: uppercase;
@@ -121,7 +121,7 @@ nav .container ul li a {
   transition: all 0.2s;
 }
 
-nav .container ul li a::before {
+nav .container #menu li a::before {
   content: "";
   width: 0%;
   height: 2px;
@@ -133,16 +133,16 @@ nav .container ul li a::before {
   transition: width 0.2s;
 }
 
-nav .container ul li a:hover {
+nav .container #menu li a:hover {
   color: #f55d22;
 }
 
-nav .container ul li a:hover::before {
+nav .container #menu li a:hover::before {
   width: 100%;
 }
 
 @media screen and (max-width: 768px) {
-  nav .container ul {
+  nav .container #menu {
     display: none;
   }
 }
@@ -156,7 +156,7 @@ main {
   min-height: 800px;
 }
 
-main .container .main_header {
+main .container #main_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -165,26 +165,44 @@ main .container .main_header {
           justify-content: space-between;
 }
 
-main .container .main_header .favorite_films li {
-  margin-bottom: 5px;
+main .container #main_header #films p {
+  width: 100%;
+  margin-bottom: 10px;
   cursor: pointer;
+  position: relative;
+  margin-right: 50px;
 }
 
-main .container .main_header .add {
+main .container #main_header #films p [data-rm] {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -6px;
+  font-size: 25px;
+  color: #f00;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+main .container #main_header #films p:hover [data-rm] {
+  display: block;
+}
+
+main .container #main_header #add {
   width: 50%;
 }
 
-main .container .main_header .add input, main .container .main_header .add button {
+main .container #main_header #add input, main .container #main_header #add button {
   padding: 10px;
   border-radius: 8px;
 }
 
-main .container .main_header .add input {
+main .container #main_header #add input {
   border: 1px solid #ccc;
   width: 70%;
 }
 
-main .container .main_header .add button {
+main .container #main_header #add button {
   border: 1px solid green;
   background: green;
   color: #fff;
@@ -192,13 +210,13 @@ main .container .main_header .add button {
 }
 
 @media screen and (max-width: 768px) {
-  main .container .main_header {
+  main .container #main_header {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-flow: column;
             flex-flow: column;
   }
-  main .container .main_header .add {
+  main .container #main_header #add {
     margin-bottom: 30px;
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
@@ -207,7 +225,7 @@ main .container .main_header .add button {
   }
 }
 
-main .container .main_promo {
+main .container #main_promo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -216,7 +234,7 @@ main .container .main_promo {
           align-items: center;
 }
 
-main .container .main_promo .mp img {
+main .container #main_promo .mp img {
   width: 100%;
   height: 200px;
 }
