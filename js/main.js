@@ -1,52 +1,164 @@
 "use strict";
-const imgName = document.querySelector("header img");
-const title = document.querySelector("title");
-const promo = document.querySelectorAll(".mp");
-const films = document.getElementById("films");
-const mewFilm = document.querySelector("#add input");
-const addFilm = document.querySelector("#add button")
-const yourDB = {
+
+const poster = document.querySelector("header img");
+const advs = document.querySelectorAll("#main_promo .mp");
+const filmsBlock = document.getElementById("films");
+const form = document.querySelector("#add");
+const _DB = {
 	movies: [
-		"Logan", "Spider-Man", "The Seven Samurai",
-		"Bonnie and Clyde", "Reservoir Dogs", "Crid",
-		"Doctor Zhivago", "The Deer Hunter", "Rocky"
+		{
+			name: "Logan",
+			check: false
+		},
+		{
+			name: "Spider-Man",
+			check: false
+		},
+		{
+			name: "The Seven Samurai",
+			check: false
+		},
+		{
+			name: "Bonnie and Clyde",
+			check: false
+		},
+		{
+			name: "Reservoir Dogs",
+			check: false
+		},
+		{
+			name: "Crid",
+			check: false
+		},
+		{
+			name: "Doctor Zhivago",
+			check: false
+		},
+		{
+			name: "The Deer Hunter",
+			check: false
+		},
+		{
+			name: "Rocky",
+			check: false
+		},
 	]
 };
-imgName.src = "img/bg2.jpg";
-if (imgName.src.slice(28, 29) == "2") {
-	imgName.alt = "Hitman's wife's bodyguard";
-} else {
-	imgName.alt = "GEMINI MAN";
+
+function init() {
+	advs.forEach(adv => adv.remove());
+	poster.src = "img/bg2.jpg";
+	if (poster.src.slice(31) === "bg1.jpg") {
+		poster.alt = "GEMINI MAN";
+	} else {
+		poster.alt = "Hitman's wife's bodyguard";
+	}
+	document.title = poster.alt;
 }
-title.textContent = imgName.alt;
-promo.forEach(items => items.remove());
-yourDB.movies.forEach((item, index) => {
+init();
 
-	films.innerHTML += `
-		<p>${index + 1} ${item}
-			<span data-rm>&#128465</span>
-		</p>
-	`
-	document.querySelectorAll("[data-rm]").forEach((element, index) => {
-		element.addEventListener("click", item => {
-			const filmsName = document.querySelectorAll("#films p");
-			item.target.parentElement.remove();
-			console.log(index);
-			for (let i = index; i < yourDB.movies.length; i++) {
-				filmsName[i].childNodes[0].data = `${i} ${filmsName[i].childNodes[0].data.split(" ").splice(1).join(" ")}`;
-			}
-			console.log(yourDB.movies);
-		})
-
-	});
-
+form.addEventListener("submit", (e) => {
+	e.preventDefault();
+	let val = e.target.firstElementChild.value.trim();
+	const check = document.querySelector("input[name='favorite']");
+	for (let i of _DB.movies) {
+		if (i.name == val) {
+			alert("This movie is already on your list.");
+			return;
+		}
+	}
+	if (val !== "" && val !== "<" && val !== ">" && val !== "/" && val !== "?") {
+		if (check.checked) {
+			_DB.movies.push({ name: val, check: true });
+		} else {
+			_DB.movies.push({ name: val, check: false });
+		}
+		setSort(_DB.movies);
+		createFilmsList(_DB.movies, filmsBlock);
+	}
+	e.target.reset();
 });
-addFilm.addEventListener("click", function () {
-	yourDB.movies.push(mewFilm.value);
-	console.log(yourDB.movies);
-	films.innerHTML += `
-	<p>${films.childElementCount + 1} ${mewFilm.value}
-		<span data-rm>&#128465</span>
-	</p>
-`
-})
+function forOne(arr, elm) {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] == elm) {
+			return 1;
+		}
+	}
+	return 0;
+}
+function setSort(arr) {
+	arr.sort((a, b) => a.name.localeCompare(b.name));
+}
+function createFilmsList(filmsArr, parent) {
+	parent.innerHTML = "";
+	if (filmsArr.length < 20) {
+		setSort(filmsArr);
+		filmsArr.forEach((film, index) => {
+			parent.innerHTML += `
+				<p>
+					${index + 1}. 
+					${film.name.length >= 21 ? film.name.slice(0, 21) + '...' : film.name}
+					<span data-rm>&#128465</span>
+					<span class = "fav">&#11088;</span>
+				</p>
+			`;
+			if (film.check) {
+				document.querySelectorAll(".fav")[index].style.display = "block";
+			}
+
+		});
+	} else {
+		let sortArr = [];
+		randomNums();
+		function randomNums() {
+			let randomNum = Math.floor(Math.random() * filmsArr.length);
+			let name = filmsArr[randomNum].name;
+			if (sortArr.length < 20) {
+				if (forOne(sortArr, name) === 0) {
+					sortArr.push(name);
+				}
+				randomNums();
+			} else {
+				return sortArr;
+			}
+		}
+		sortArr.sort((a, b) => {
+			return a.toLowerCase().localeCompare(b.toLowerCase())
+		})
+		sortArr.forEach((film, index) => {
+			parent.innerHTML += `
+				<p>
+					${index + 1}. 
+					${film.length >= 21 ? film.slice(0, 21) + '...' : film}
+					<span data-rm>&#128465</span>
+					<span class = "fav">&#11088;</span>
+				</p>
+			`;
+			if (film.check) {
+				document.querySelectorAll(".fav")[index].style.display = "block";
+			}
+		})
+	}
+	addFavorite()
+	removeFilmFromList('[data-rm]')
+}
+function removeFilmFromList(selector) {
+	setSort(_DB.movies);
+	document.querySelectorAll(selector).forEach((btn, index) => {
+		btn.addEventListener("click", () => {
+			btn.parentElement.remove();
+			_DB.movies.splice(index, 1);
+			createFilmsList(_DB.movies, filmsBlock);
+		});
+	});
+}
+function addFavorite() {
+	document.querySelectorAll(".fav").forEach((btn, index) => {
+		btn.addEventListener("click", () => {
+			_DB.movies[index].check === true ? _DB.movies[index].check = false : _DB.movies[index].check = true;
+			createFilmsList(_DB.movies, filmsBlock);
+		});
+	});
+}
+
+createFilmsList(_DB.movies, filmsBlock);
