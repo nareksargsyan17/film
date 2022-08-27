@@ -4,6 +4,9 @@ const poster = document.querySelector("header img");
 const advs = document.querySelectorAll("#main_promo .mp");
 const filmsBlock = document.getElementById("films");
 const form = document.querySelector("#add");
+const signInModalBtn = document.querySelector("[data-in]");
+const signInModal = document.querySelector("[data-in-modal]");
+const menu = document.querySelector("#menu")
 const _DB = {
 	movies: [
 		{
@@ -56,7 +59,6 @@ function init() {
 	document.title = poster.alt;
 }
 init();
-
 form.addEventListener("submit", (e) => {
 	e.preventDefault();
 	let val = e.target.firstElementChild.value.trim();
@@ -78,14 +80,6 @@ form.addEventListener("submit", (e) => {
 	}
 	e.target.reset();
 });
-function forOne(arr, elm) {
-	for (let i = 0; i < arr.length; i++) {
-		if (arr[i] == elm) {
-			return 1;
-		}
-	}
-	return 0;
-}
 function setSort(arr) {
 	arr.sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -114,7 +108,7 @@ function createFilmsList(filmsArr, parent) {
 			let randomNum = Math.floor(Math.random() * filmsArr.length);
 			let name = filmsArr[randomNum].name;
 			if (sortArr.length < 20) {
-				if (forOne(sortArr, name) === 0) {
+				if (!sortArr.includes(name)) {
 					sortArr.push(name);
 				}
 				randomNums();
@@ -160,5 +154,60 @@ function addFavorite() {
 		});
 	});
 }
-
 createFilmsList(_DB.movies, filmsBlock);
+
+signInModalBtn.addEventListener("click", (e) => {
+	e.preventDefault();
+	signInModal.classList.add("modal_wrapper-active");
+})
+signInModal.addEventListener("click", (e) => {
+	if(e.target.matches("div.modal_wrapper")){
+		signInModal.classList.toggle("modal_wrapper-active");
+	}
+	e.preventDefault();
+})
+if(window.innerWidth <= 768){
+	menu.insertAdjacentHTML("beforebegin", `
+	<div id = "mobMenu">
+	<div></div>
+	<div></div>
+	<div></div>
+	</div>
+	
+	`);
+	const mobMenu = document.querySelector("#mobMenu")
+	for(let i= 0; i<3; i++){
+				mobMenu.children[i].style.cssText = `
+				top: 0;
+				width: 35px;
+				height: 3px;
+				background-color: white;
+				margin: 4px 0;
+			  `
+			}
+			mobMenu.style.cssText = `
+			display : flex;
+			flex-direction : column;
+			align-items:center;
+			`
+			menu.style.display = "none"
+}
+mobMenu.addEventListener("touchend", (e)=>{
+	if(menu.style.display === "none"){
+	mobMenu.style.marginTop = "215px"
+	menu.style.cssText = `
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	width : 150px;
+	background : #171131;
+	padding : 0 10px 15px 10px;
+	`
+	for(let i = 0; i<menu.children.length; i++){
+		menu.children[i].style.marginTop = "15px"
+	}
+	}else{
+		mobMenu.style.marginTop = "0"
+		menu.style.display = "none"
+	}
+})
