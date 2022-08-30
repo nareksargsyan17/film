@@ -219,10 +219,9 @@ function tabFunc(){
 	let prev = 0;
 	for (let i = 0; i < tabBtns.length; i++) {
 		tabBtns[i].addEventListener("click", () => {
-			if(!tabBtns[i].classList.contains("tab_btn-active")){
 				tabBtns[i].classList.add("tab_btn-active");
 				tabBodys[i].classList.add("tab_body-active");
-			}if(prev !== i){
+			if(prev !== i){
 				tabBtns[prev].classList.remove("tab_btn-active");
 				tabBodys[prev].classList.remove("tab_body-active");
 				prev = i;
