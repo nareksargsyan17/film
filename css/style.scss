@@ -18,6 +18,51 @@
 $bg : #171131;
 $og : #f55d22;
 $br : 8px;
+$ogDark : #df480d;
+
+.tabs {
+	margin-top: 60px;
+	.tab {
+		.tab_btns {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 30px;
+
+			.tab_btn {
+				padding: 10px;
+				background: $og;
+				flex-basis: calc(100%/4);
+				text-align: center;
+				color: #fff;
+				cursor: pointer;
+
+				&.tab_btn-active {
+					background: $ogDark
+				}
+			}
+		}
+
+		.tab_bodys {
+			margin-top: 20px;
+
+			.tab_body {
+				display: none;
+
+				&.tab_body-active {
+					display: block;
+				}
+				p {
+					color: #5d5d5d;
+					font-size: 17px;
+					line-height: 25px;
+					letter-spacing: 1px;
+					text-align: justify;
+				}
+			}
+		}
+	}
+}
+
 
 #top_nav{
 	background: $bg;
@@ -70,6 +115,7 @@ nav {
 	top: 0;
 	left: 0px;
 	background: $bg;
+	
 	
 	.container {
 		display: flex;

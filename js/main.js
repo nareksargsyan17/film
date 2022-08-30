@@ -7,6 +7,8 @@ const form = document.querySelector("#add");
 const signInModalBtn = document.querySelector("[data-in]");
 const signInModal = document.querySelector("[data-in-modal]");
 const menu = document.querySelector("#menu")
+const tabBtns = document.querySelectorAll(".tab_btn");
+const tabBodys = document.querySelectorAll(".tab_body");
 const _DB = {
 	movies: [
 		{
@@ -191,10 +193,10 @@ if(window.innerWidth <= 768){
 			align-items:center;
 			`
 			menu.style.display = "none"
-}
-mobMenu.addEventListener("touchend", (e)=>{
+			console.log(mobMenu);
+document.querySelector("#mobMenu").addEventListener("touchend", (e)=>{
 	if(menu.style.display === "none"){
-	mobMenu.style.marginTop = "215px"
+	e.target.style.marginTop = "215px"
 	menu.style.cssText = `
 	display : flex;
 	flex-direction : column;
@@ -207,7 +209,25 @@ mobMenu.addEventListener("touchend", (e)=>{
 		menu.children[i].style.marginTop = "15px"
 	}
 	}else{
-		mobMenu.style.marginTop = "0"
+		e.target.style.marginTop = "0"
 		menu.style.display = "none"
 	}
 })
+}
+createFilmsList(_DB.movies, filmsBlock);
+function tabFunc(){
+	let prev = 0;
+	for (let i = 0; i < tabBtns.length; i++) {
+		tabBtns[i].addEventListener("click", () => {
+			if(!tabBtns[i].classList.contains("tab_btn-active")){
+				tabBtns[i].classList.add("tab_btn-active");
+				tabBodys[i].classList.add("tab_body-active");
+			}if(prev !== i){
+				tabBtns[prev].classList.remove("tab_btn-active");
+				tabBodys[prev].classList.remove("tab_body-active");
+				prev = i;
+			}
+		});
+	}
+}
+tabFunc();
